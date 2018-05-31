@@ -21,9 +21,9 @@ void MainWindow::OnFileOpenClick() {
             tr("Open Graph"), "",
             tr("Graph (*.txt);;All Files (*)"));
     GraphReader gr;
-    gr.ReadGraphFromFile(fileName);
+    Graph* g = gr.ReadGraphFromFile(fileName);
 
-    GraphSubWindow* w = new GraphSubWindow(ui->mdiArea);
+    GraphSubWindow* w = new GraphSubWindow(ui->mdiArea, g);
     w->setWindowTitle("DICK");
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();

@@ -1,27 +1,49 @@
 #include "graphdrawer.h"
-#include <QPainter>
-#include <QRect>
 
-GraphDrawer::GraphDrawer(Graph* g, QPainter* p, int circleSize)
-    : _painter(p),
-      _graph(g),
+
+GraphDrawer::GraphDrawer(Graph* g, int circleSize)
+    : _graph(g),
       _circleSize(circleSize)
 {
-    prepare();
 }
 
 void GraphDrawer::prepare() {
-    _vertex.append(new GraphVertex(20,20,"DICSK"));
-    _vertex.append(new GraphVertex(50,70,"YUEB"));
+
+    foreach (int data, _graph->GetVertex().keys()) {
+        _vertex.append(new GraphVertex(getNextAvailablePoint(), QString::number(data)));
+    }
+    foreach (int data, _graph->GetVertex().keys()) {
+        GraphVertex* curr = getVertexByData(QString::number(data));
+        vector<int>* adjacent = _graph->GetVertex()[data];
+        for(int v: *adjacent){
+            GraphVertex* adjVertex = getVertexByData(QString::number(v));
+            _edges.append(new GraphEdge(curr, adjVertex));
+        }
+    }
+    alreadyPrepared = true;
+//    _vertex.append(new GraphVertex(getNextAvailablePoint(),"DICSK"));
+//    _vertex.append(new GraphVertex(getNextAvailablePoint(),"YUEB"));
+}
+GraphVertex* GraphDrawer::getVertexByData(QString data) {
+
+    QVector<GraphVertex*>::iterator res = find_if(_vertex.begin(), _vertex.end(),[data](GraphVertex* v){
+        return v->Data == data;
+    });
+    return *res;
 }
 
-void GraphDrawer::draw() {
-    drawEdge(_vertex[0], _vertex[1]);
+void GraphDrawer::draw(QPainter* painter) {
+    _painter = painter;
+    if(!alreadyPrepared)
+        prepare();
+//    drawEdge(_vertex[0], _vertex[1]);
+    painter->setBrush(Qt::white);
     for(GraphVertex* v: _vertex){
-        _painter->setBrush(Qt::white);
         drawVertex(v);
     }
-
+    for(GraphEdge* e: _edges) {
+        drawEdge(e);
+    }
 }
 
 void GraphDrawer::drawVertex(GraphVertex* v) {
@@ -35,9 +57,37 @@ void GraphDrawer::drawVertex(GraphVertex* v) {
 }
 
 
-void GraphDrawer::drawEdge(GraphVertex* v1, GraphVertex* v2) {
-    _painter->drawLine(v1->X + _circleSize / 2,
-                       v1->Y + _circleSize / 2,
-                       v2->X + _circleSize / 2,
-                       v2->Y + _circleSize / 2);
+void GraphDrawer::drawEdge(GraphEdge* e) {
+    _painter->drawLine(e->GetV1()->X + _circleSize / 2,
+                       e->GetV1()->Y + _circleSize / 2,
+                       e->GetV2()->X + _circleSize / 2,
+                       e->GetV2()->Y + _circleSize / 2);
+}
+
+
+QPoint GraphDrawer::getNextAvailablePoint() {
+    int maxX = _painter->window().width();
+    int maxY = _painter->window().height();
+
+
+    for(int i = 0; i<tryCount; i++){
+        int x = QRandomGenerator::global()->bounded(0, maxX);
+        int y = QRandomGenerator::global()->bounded(0, maxY);
+        if(isFreePosition(x, y))
+            return QPoint(x, y);
+    }
+    throw "graph drawing error";
+
+}
+
+int GraphDrawer::getDistance(int x1, int y1, int x2, int y2) {
+    return (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
+}
+
+bool GraphDrawer::isFreePosition(int x, int y) {
+    for(GraphVertex* v: _vertex) {
+        if(getDistance(x,y, v->X, v->Y) < MIN_VERTEX_DISTANCE)
+            return false;
+    }
+    return true;
 }

@@ -5,3 +5,8 @@ GraphVertex::GraphVertex(int x, int y, QString data)
 {
 
 }
+
+GraphVertex::GraphVertex(QPoint p, QString data): GraphVertex(p.x(), p.y(), data)
+{
+
+}

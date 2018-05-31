@@ -30,7 +30,8 @@ SOURCES += \
     graphreader.cpp \
     graphsubwindow.cpp \
     graphdrawer.cpp \
-    graphvertex.cpp
+    graphvertex.cpp \
+    graphedge.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     graphreader.h \
     graphsubwindow.h \
     graphdrawer.h \
-    graphvertex.h
+    graphvertex.h \
+    graphedge.h
 
 FORMS += \
         mainwindow.ui \

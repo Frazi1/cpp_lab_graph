@@ -9,7 +9,7 @@ class GraphReader
 {
 public:
     GraphReader();
-    Graph ReadGraphFromFile(QString path);
+    Graph* ReadGraphFromFile(QString path);
 };
 
 #endif // GRAPHREADER_H
