@@ -5,23 +5,20 @@ Graph::Graph()
    this->vertex = QMap<int, vector<int>*>();
 }
 
-QMap<int, vector<int>*> Graph::GetVertexLayers(int startVertex) {
-    vector<int> evaluated;
-    QMap<int, vector<int>*> res;
-    res[startVertex] = new vector<int>();
-    res[startVertex] = 0;
-    evaluated.push_back(startVertex);
+QVector<Graph*>* Graph::GetVertexLayers(int startVertex) {
+    QVector<VertexLayer*> evaluated;
 
-    //queue<int> nextVertex;
-    //for(int v: *vertex[startVertex]) {
-      //  nextVertex.push(v);
-   // }
-
-    //while (!nextVertex.empty()) {
-      //  int next = nextVertex.pop();
-
-    //}
-
+    QQueue<VertexLayer*> vertexQueue;
+    vertexQueue.enqueue(new VertexLayer(startVertex, 0));
+    while(!vertexQueue.empty()) {
+        VertexLayer* current = vertexQueue.dequeue();
+        vector<int>* adjacent = vertex[current->GetData()];
+        for(int adj: *adjacent) {
+            if(std::count_if(evaluated.begin(), evaluated.end(), [adj](VertexLayer* vl) {return vl->GetData() == adj;}) == 0){
+                evaluated.push_back(new VertexLayer(adj, current->GetLayer() + 1));
+            }
+        }
+    }
     return res;
 
 }

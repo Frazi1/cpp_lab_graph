@@ -31,7 +31,8 @@ SOURCES += \
     graphsubwindow.cpp \
     graphdrawer.cpp \
     graphvertex.cpp \
-    graphedge.cpp
+    graphedge.cpp \
+    vertexlayer.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS += \
     graphsubwindow.h \
     graphdrawer.h \
     graphvertex.h \
-    graphedge.h
+    graphedge.h \
+    vertexlayer.h
 
 FORMS += \
         mainwindow.ui \

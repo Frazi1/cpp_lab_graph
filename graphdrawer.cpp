@@ -37,12 +37,13 @@ void GraphDrawer::draw(QPainter* painter) {
     if(!alreadyPrepared)
         prepare();
 //    drawEdge(_vertex[0], _vertex[1]);
-    painter->setBrush(Qt::white);
-    for(GraphVertex* v: _vertex){
-        drawVertex(v);
-    }
+
     for(GraphEdge* e: _edges) {
         drawEdge(e);
+    }
+    for(GraphVertex* v: _vertex){
+        painter->setBrush(Qt::white);
+        drawVertex(v);
     }
 }
 

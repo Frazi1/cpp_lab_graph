@@ -1,7 +1,10 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 #include <qmap.h>
+#include "vertexlayer.h"
 #include <queue>
+#include <QVector>
+#include <QQueue>
 
 using namespace std;
 
@@ -11,7 +14,7 @@ private:
     QMap<int, vector<int>*> vertex;
 public:
     Graph();
-    QMap<int, vector<int>*> GetVertexLayers(int startVertex);
+    QVector<Graph*>* GetVertexLayers(int startVertex);
     QMap<int, vector<int>*>& GetVertex();
 };
 
