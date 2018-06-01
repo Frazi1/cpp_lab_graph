@@ -22,3 +22,8 @@ void GraphSubWindow::paintEvent(QPaintEvent *paintEvent) {
      _painter = new QPainter(this);
     _graphDrawer->draw(_painter);
 }
+
+
+Graph* GraphSubWindow::GetGraph() {
+    return _graph;
+}

@@ -18,6 +18,7 @@ class GraphSubWindow : public QMdiSubWindow
 public:
     explicit GraphSubWindow(QWidget *parent = 0, Graph* g = nullptr);
     ~GraphSubWindow();
+    Graph* GetGraph();
 
 protected:
     void paintEvent(QPaintEvent *event);

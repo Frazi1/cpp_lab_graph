@@ -47,7 +47,14 @@
     </property>
     <addaction name="actionOpen"/>
    </widget>
+   <widget class="QMenu" name="menuGraph">
+    <property name="title">
+     <string>Graph</string>
+    </property>
+    <addaction name="actionLayers"/>
+   </widget>
    <addaction name="menuOpen_File"/>
+   <addaction name="menuGraph"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -61,6 +68,11 @@
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+  </action>
+  <action name="actionLayers">
+   <property name="text">
+    <string>Layers</string>
    </property>
   </action>
  </widget>
@@ -83,8 +95,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionLayers</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>OnLayersClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>OnFileOpenClick()</slot>
+  <slot>OnLayersClick()</slot>
  </slots>
 </ui>

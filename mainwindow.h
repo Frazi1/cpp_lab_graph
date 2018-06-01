@@ -20,6 +20,7 @@ public:
 
 public slots:
     void OnFileOpenClick();
+    void OnLayersClick();
 
 private:
     Ui::MainWindow *ui;

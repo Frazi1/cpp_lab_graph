@@ -33,3 +33,10 @@ void MainWindow::OnFileOpenClick() {
     p.drawEllipse(10, 10, 100, 100);
 
 }
+
+void MainWindow::OnLayersClick(){
+    GraphSubWindow* active =  dynamic_cast<GraphSubWindow*>(ui->mdiArea->activeSubWindow());
+    if(active != nullptr) {
+       QMap<int, Graph*>* layers = active->GetGraph()->GetVertexLayers(1);
+    }
+}

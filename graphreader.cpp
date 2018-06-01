@@ -21,6 +21,7 @@ Graph* GraphReader::ReadGraphFromFile(QString path){
             g->GetVertex().insert(vertex, new vector<int>());
             if(!in.atEnd()){
                 QStringList adjacentLines = in.readLine().split(" ");
+                adjacentLines.removeAll("");
                 for(QString& al: adjacentLines) {
                     g->GetVertex()[vertex]->push_back(al.toInt());
                 }

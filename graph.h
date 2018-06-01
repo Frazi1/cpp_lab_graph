@@ -12,9 +12,11 @@ class Graph
 {
 private:
     QMap<int, vector<int>*> vertex;
+    Graph* ExtractLayer(int layer, QVector<VertexLayer*>* layers);
 public:
     Graph();
-    QVector<Graph*>* GetVertexLayers(int startVertex);
+    Graph(QMap<int, vector<int>*> vertex);
+    QMap<int, Graph*>* GetVertexLayers(int startVertex);
     QMap<int, vector<int>*>& GetVertex();
 };
 
