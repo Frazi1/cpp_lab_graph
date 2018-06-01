@@ -31,8 +31,12 @@ private:
     }
 
 public:
-    Graph();
-    Graph(QMap<T, vector<T>*> vertex);
+    Graph() {
+        vertex = QMap<int, vector<int>*>();
+    }
+    Graph(QMap<T, vector<T>*> vertex) {
+        this->vertex = QMap<int, vector<int>*>();
+    }
     QMap<T, Graph<T>*>* GetVertexLayers(T startVertex) {
         QVector<VertexLayer<T>*> evaluated;
 
