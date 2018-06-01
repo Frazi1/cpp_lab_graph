@@ -5,7 +5,7 @@ GraphReader::GraphReader()
 
 }
 
-Graph* GraphReader::ReadGraphFromFile(QString path){
+Graph<int>* GraphReader::ReadGraphFromFile(QString path){
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "error", file.errorString());
@@ -13,7 +13,7 @@ Graph* GraphReader::ReadGraphFromFile(QString path){
 
     QTextStream in(&file);
 
-    Graph* g = new Graph;
+    Graph<int>* g = new Graph<int>;
     while(!in.atEnd()) {
         QString vertexLine = in.readLine();
         if(!vertexLine.isEmpty()){
@@ -32,3 +32,5 @@ Graph* GraphReader::ReadGraphFromFile(QString path){
     file.close();
     return g;
 }
+
+template class Graph<int>;

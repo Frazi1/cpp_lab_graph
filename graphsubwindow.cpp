@@ -1,14 +1,14 @@
 #include "graphsubwindow.h"
 #include "ui_graphsubwindow.h"
 
-GraphSubWindow::GraphSubWindow(QWidget *parent, Graph* g) :
+GraphSubWindow::GraphSubWindow(QWidget *parent, Graph<int>* g) :
     QMdiSubWindow(parent),
     ui(new Ui::GraphSubWindow),
     _graph(g)
 {
     ui->setupUi(this);
 
-    _graphDrawer = new GraphDrawer(_graph);
+    _graphDrawer = new GraphDrawer<int>(_graph);
     repaint();
 }
 
@@ -24,6 +24,8 @@ void GraphSubWindow::paintEvent(QPaintEvent *paintEvent) {
 }
 
 
-Graph* GraphSubWindow::GetGraph() {
+Graph<int>* GraphSubWindow::GetGraph() {
     return _graph;
 }
+
+

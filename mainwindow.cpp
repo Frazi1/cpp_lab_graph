@@ -21,7 +21,7 @@ void MainWindow::OnFileOpenClick() {
             tr("Open Graph"), "",
             tr("Graph (*.txt);;All Files (*)"));
     GraphReader gr;
-    Graph* g = gr.ReadGraphFromFile(fileName);
+    Graph<int>* g = gr.ReadGraphFromFile(fileName);
 
    CreateGraphSubWindow(g, "Test");
 }
@@ -29,14 +29,14 @@ void MainWindow::OnFileOpenClick() {
 void MainWindow::OnLayersClick(){
     GraphSubWindow* active =  dynamic_cast<GraphSubWindow*>(ui->mdiArea->activeSubWindow());
     if(active != nullptr) {
-       QMap<int, Graph*>* layers = active->GetGraph()->GetVertexLayers(1);
+       QMap<int, Graph<int>*>* layers = active->GetGraph()->GetVertexLayers(1);
        for(int layer: layers->keys()) {
            CreateGraphSubWindow((*layers)[layer], QString::number(layer));
        }
     }
 }
 
-void MainWindow::CreateGraphSubWindow(Graph* g, QString title){
+void MainWindow::CreateGraphSubWindow(Graph<int>* g, QString title){
     GraphSubWindow* w = new GraphSubWindow(ui->mdiArea, g);
     w->setWindowTitle(title);
     w->setAttribute(Qt::WA_DeleteOnClose);
