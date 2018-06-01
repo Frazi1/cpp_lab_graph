@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QString>
 #include "graphreader.h"
 #include "qfiledialog.h"
 #include "graphsubwindow.h"
@@ -24,6 +25,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    void CreateGraphSubWindow(Graph* g, QString name);
 };
 
 #endif // MAINWINDOW_H

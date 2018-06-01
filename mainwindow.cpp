@@ -23,20 +23,22 @@ void MainWindow::OnFileOpenClick() {
     GraphReader gr;
     Graph* g = gr.ReadGraphFromFile(fileName);
 
-    GraphSubWindow* w = new GraphSubWindow(ui->mdiArea, g);
-    w->setWindowTitle("DICK");
-    w->setAttribute(Qt::WA_DeleteOnClose);
-    w->show();
-
-    QPainter p(w);
-    p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
-    p.drawEllipse(10, 10, 100, 100);
-
+   CreateGraphSubWindow(g, "Test");
 }
 
 void MainWindow::OnLayersClick(){
     GraphSubWindow* active =  dynamic_cast<GraphSubWindow*>(ui->mdiArea->activeSubWindow());
     if(active != nullptr) {
        QMap<int, Graph*>* layers = active->GetGraph()->GetVertexLayers(1);
+       for(int layer: layers->keys()) {
+           CreateGraphSubWindow((*layers)[layer], QString::number(layer));
+       }
     }
+}
+
+void MainWindow::CreateGraphSubWindow(Graph* g, QString title){
+    GraphSubWindow* w = new GraphSubWindow(ui->mdiArea, g);
+    w->setWindowTitle(title);
+    w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
 }
