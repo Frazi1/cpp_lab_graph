@@ -3,9 +3,11 @@
 
 #include <QMainWindow>
 #include <QString>
+#include <QList>
 #include "graphreader.h"
 #include "qfiledialog.h"
 #include "graphsubwindow.h"
+#include "layerselectordialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,11 +23,12 @@ public:
 
 public slots:
     void OnFileOpenClick();
+    void OnFileSaveClick();
     void OnLayersClick();
 
 private:
     Ui::MainWindow *ui;
-    void CreateGraphSubWindow(Graph* g, QString name);
+    void CreateGraphSubWindow(Graph<QString>* g, QString name);
 };
 
 #endif // MAINWINDOW_H

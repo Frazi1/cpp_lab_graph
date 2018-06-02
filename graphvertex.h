@@ -4,14 +4,20 @@
 #include <QString>
 #include <QPoint>
 
+template <class T>
 class GraphVertex
 {
 public:
-    GraphVertex(int x, int y, QString data);
-    GraphVertex(QPoint p, QString data);
+    GraphVertex(int x, int y, T data):X(x), Y(y), Data(data){
+
+    }
+
+    GraphVertex(QPoint p, T data): GraphVertex(p.x(), p.y(), data){
+
+    }
     int X;
     int Y;
-    QString Data;
+    T Data;
 };
 
 #endif // GRAPHVERTEX_H

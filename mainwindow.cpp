@@ -21,24 +21,45 @@ void MainWindow::OnFileOpenClick() {
             tr("Open Graph"), "",
             tr("Graph (*.txt);;All Files (*)"));
     GraphReader gr;
-    Graph* g = gr.ReadGraphFromFile(fileName);
+    Graph<QString>* g = gr.ReadGraphFromFile(fileName);
 
    CreateGraphSubWindow(g, "Test");
+}
+
+void MainWindow::OnFileSaveClick() {
+    GraphSubWindow* active =  dynamic_cast<GraphSubWindow*>(ui->mdiArea->activeSubWindow());
+    if(active != nullptr) {
+        QString fileName = QFileDialog::getSaveFileName(this,
+                                                        tr("Save Graph"), "",
+                                                        tr("Graph (*.txt);;All Files (*)"));
+        GraphReader gr;
+        gr.SaveGraphToFile(fileName, active->GetGraph());
+    }
+
 }
 
 void MainWindow::OnLayersClick(){
     GraphSubWindow* active =  dynamic_cast<GraphSubWindow*>(ui->mdiArea->activeSubWindow());
     if(active != nullptr) {
-       QMap<int, Graph*>* layers = active->GetGraph()->GetVertexLayers(1);
-       for(int layer: layers->keys()) {
-           CreateGraphSubWindow((*layers)[layer], QString::number(layer));
-       }
+        QStringList vertex;
+        for(QString v: active->GetGraph()->GetVertex().keys())
+            vertex.append(v);
+        LayerSelectorDialog selectorDialog(this, &vertex);
+        if(selectorDialog.exec()){
+//            selectorDialog.GetSelectedVertex();
+            QString selection = selectorDialog.GetSelectedVertex();
+            QMap<int, Graph<QString>*>* layers = active->GetGraph()->GetVertexLayers(selection);
+            for(int layer: layers->keys()) {
+                CreateGraphSubWindow((*layers)[layer], QString::number(layer));
+            }
+        }
     }
 }
 
-void MainWindow::CreateGraphSubWindow(Graph* g, QString title){
+void MainWindow::CreateGraphSubWindow(Graph<QString>* g, QString title){
     GraphSubWindow* w = new GraphSubWindow(ui->mdiArea, g);
     w->setWindowTitle(title);
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
 }
+

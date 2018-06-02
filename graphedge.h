@@ -3,15 +3,23 @@
 
 #include "graphvertex.h"
 
+template <class T>
 class GraphEdge
 {
 
 private:
-    GraphVertex* _v1, *_v2;
+    GraphVertex<T>* _v1, *_v2;
 public:
-    GraphEdge(GraphVertex* v1, GraphVertex* v2);
-    GraphVertex* GetV1();
-    GraphVertex* GetV2();
+    GraphEdge(GraphVertex<T>* v1, GraphVertex<T>* v2) :_v1(v1), _v2(v2){
+
+    }
+    GraphVertex<T>* GetV1(){
+        return _v1;
+    }
+
+    GraphVertex<T>* GetV2()  {
+        return _v2;
+    }
 };
 
 #endif // GRAPHEDGE_H

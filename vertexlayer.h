@@ -2,15 +2,21 @@
 #define VERTEXLAYER_H
 
 
+template <class T>
 class VertexLayer
 {
 private:
-    int _data;
+    T _data;
     int _layer;
 public:
-    VertexLayer(int data, int layer);
-    int GetData();
-    int GetLayer();
+    VertexLayer(T data, int layer) : _data(data), _layer(layer) {
+    }
+    T GetData() {
+        return _data;
+    }
+    int GetLayer() {
+        return _layer;
+    }
 };
 
 #endif // VERTEXLAYER_H
