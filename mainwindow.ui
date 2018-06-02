@@ -46,6 +46,7 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
    </widget>
    <widget class="QMenu" name="menuGraph">
     <property name="title">
@@ -75,6 +76,11 @@
     <string>Layers</string>
    </property>
   </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -86,8 +92,8 @@
    <slot>OnFileOpenClick()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>199</x>
-     <y>149</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -111,9 +117,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSave</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>OnFileSaveClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>OnFileOpenClick()</slot>
   <slot>OnLayersClick()</slot>
+  <slot>OnFileSaveClick()</slot>
  </slots>
 </ui>

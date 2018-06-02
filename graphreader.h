@@ -10,6 +10,7 @@ class GraphReader
 public:
     GraphReader();
     Graph<QString>* ReadGraphFromFile(QString path);
+    void SaveGraphToFile(QString path, Graph<QString>* graph);
 };
 
 #endif // GRAPHREADER_H

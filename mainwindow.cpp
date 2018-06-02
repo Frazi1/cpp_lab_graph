@@ -26,6 +26,18 @@ void MainWindow::OnFileOpenClick() {
    CreateGraphSubWindow(g, "Test");
 }
 
+void MainWindow::OnFileSaveClick() {
+    GraphSubWindow* active =  dynamic_cast<GraphSubWindow*>(ui->mdiArea->activeSubWindow());
+    if(active != nullptr) {
+        QString fileName = QFileDialog::getSaveFileName(this,
+                                                        tr("Save Graph"), "",
+                                                        tr("Graph (*.txt);;All Files (*)"));
+        GraphReader gr;
+        gr.SaveGraphToFile(fileName, active->GetGraph());
+    }
+
+}
+
 void MainWindow::OnLayersClick(){
     GraphSubWindow* active =  dynamic_cast<GraphSubWindow*>(ui->mdiArea->activeSubWindow());
     if(active != nullptr) {

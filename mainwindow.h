@@ -23,6 +23,7 @@ public:
 
 public slots:
     void OnFileOpenClick();
+    void OnFileSaveClick();
     void OnLayersClick();
 
 private:

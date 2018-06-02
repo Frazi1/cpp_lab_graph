@@ -15,6 +15,8 @@ GraphSubWindow::GraphSubWindow(QWidget *parent, Graph<QString>* g) :
 GraphSubWindow::~GraphSubWindow()
 {
     delete ui;
+    delete _graph;
+    delete _graphDrawer;
 }
 
 void GraphSubWindow::paintEvent(QPaintEvent *paintEvent) {
