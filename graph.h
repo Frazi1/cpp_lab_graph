@@ -18,11 +18,11 @@ private:
 
         for (VertexLayer<T>* vl: *layers) {
             if(vl->GetLayer() == layer){
-                res->GetVertex().insert(vl->GetData(), new vector<int>);
+                res->GetVertex().insert(vl->GetData(), new vector<T>);
             }
         }
         for (T layerGraphVertex: res->GetVertex().keys()) {
-            for (int adjacentVertex: *GetVertex()[layerGraphVertex]) {
+            for (T adjacentVertex: *GetVertex()[layerGraphVertex]) {
                 if(res->GetVertex().contains(adjacentVertex))
                     res->GetVertex()[layerGraphVertex]->push_back(adjacentVertex);
             }
@@ -32,12 +32,13 @@ private:
 
 public:
     Graph() {
-        vertex = QMap<int, vector<int>*>();
+        vertex = QMap<T, vector<T>*>();
     }
     Graph(QMap<T, vector<T>*> vertex) {
-        this->vertex = QMap<int, vector<int>*>();
+        this->vertex = QMap<T, vector<T>*>();
     }
-    QMap<T, Graph<T>*>* GetVertexLayers(T startVertex) {
+
+    QMap<int, Graph<T>*>* GetVertexLayers(T startVertex) {
         QVector<VertexLayer<T>*> evaluated;
 
         QQueue<VertexLayer<T>*> vertexQueue;
@@ -56,7 +57,7 @@ public:
                 }
             }
         }
-        QMap<T,Graph*>* layerGraphs = new QMap<T, Graph*>;
+        QMap<int,Graph*>* layerGraphs = new QMap<int, Graph*>;
         VertexLayer<T>* maxLayer = *std::max_element(evaluated.begin(), evaluated.end(),
                                                      [](VertexLayer<T>* l, VertexLayer<T>* r) {
                 return l->GetLayer() < r->GetLayer();

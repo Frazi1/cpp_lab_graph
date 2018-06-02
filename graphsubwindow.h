@@ -16,17 +16,17 @@ class GraphSubWindow : public QMdiSubWindow
     Q_OBJECT
 
 public:
-    explicit GraphSubWindow(QWidget *parent = 0, Graph<int>* g = nullptr);
+    explicit GraphSubWindow(QWidget *parent = 0, Graph<QString>* g = nullptr);
     ~GraphSubWindow();
-    Graph<int>* GetGraph();
+    Graph<QString>* GetGraph();
 
 protected:
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     Ui::GraphSubWindow *ui;
-    Graph<int>* _graph{};
-    GraphDrawer<int>* _graphDrawer;
+    Graph<QString>* _graph{};
+    GraphDrawer<QString>* _graphDrawer;
     QPainter* _painter;
 };
 
