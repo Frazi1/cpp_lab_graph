@@ -4,6 +4,7 @@
 #include <graph.h>
 #include "graphvertex.h"
 #include "graphedge.h"
+#include "applicationexception.h"
 #include <QPainter>
 #include <QVector>
 #include <QPoint>
@@ -16,7 +17,7 @@ class GraphDrawer
 {
 private:
     const int MIN_VERTEX_DISTANCE = 35;
-    const int tryCount = 100;
+    const int TRY_COUNT = 100;
 
     bool alreadyPrepared = false;
     QPainter* _painter;
@@ -25,22 +26,6 @@ private:
     Graph<T>* _graph{};
     QVector<GraphVertex<T>*> _vertex{};
     QVector<GraphEdge<T>*> _edges{};
-
-    void prepare() {
-        foreach (T data, _graph->GetVertex().keys()) {
-            _vertex.append(new GraphVertex<T>(getNextAvailablePoint(), data));
-        }
-        foreach (T data, _graph->GetVertex().keys()) {
-            GraphVertex<T>* curr = getVertexByData(data);
-
-            vector<T>* adjacent =  _graph->GetVertex()[data];//TODO: make generic
-            for(T v: *adjacent){
-                GraphVertex<T>* adjVertex = getVertexByData(v);
-                _edges.append(new GraphEdge<T>(curr, adjVertex));
-            }
-        }
-        alreadyPrepared = true;
-    }
 
     void drawVertex(GraphVertex<T>* v) {
         QRect r = QRect(v->X, v->Y, _circleSize, _circleSize);
@@ -62,13 +47,13 @@ private:
         int maxY = _painter->window().height();
 
 
-        for(int i = 0; i<tryCount; i++){
+        for(int i = 0; i<TRY_COUNT; i++){
             int x = QRandomGenerator::global()->bounded(0, maxX);
             int y = QRandomGenerator::global()->bounded(0, maxY);
             if(isFreePosition(x, y))
                 return QPoint(x, y);
         }
-        throw "graph drawing error";
+       throw ApplicationException("graph drawing error");
 
     }
 
@@ -97,11 +82,26 @@ public:
 
     }
 
+    void prepare() {
+        foreach (T data, _graph->GetVertex().keys()) {
+            _vertex.append(new GraphVertex<T>(getNextAvailablePoint(), data));
+        }
+        foreach (T data, _graph->GetVertex().keys()) {
+            GraphVertex<T>* curr = getVertexByData(data);
+
+            vector<T>* adjacent =  _graph->GetVertex()[data];//TODO: make generic
+            for(T v: *adjacent){
+                GraphVertex<T>* adjVertex = getVertexByData(v);
+                _edges.append(new GraphEdge<T>(curr, adjVertex));
+            }
+        }
+        alreadyPrepared = true;
+    }
+
     void draw(QPainter* painter) {
         _painter = painter;
         if(!alreadyPrepared)
             prepare();
-        //    drawEdge(_vertex[0], _vertex[1]);
 
         for(GraphEdge<T>* e: _edges) {
             drawEdge(e);

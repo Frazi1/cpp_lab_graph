@@ -5,6 +5,7 @@
 #include <QMdiSubWindow>
 #include "graph.h"
 #include "graphdrawer.h"
+#include "errorhandler.h"
 
 
 namespace Ui {
@@ -22,12 +23,19 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) override;
+    void showEvent(QShowEvent* event ) override {
+        QWidget::showEvent( event );
+        isShown = true;
+    }
 
 private:
     Ui::GraphSubWindow *ui;
     Graph<QString>* _graph{};
     GraphDrawer<QString>* _graphDrawer;
     QPainter* _painter;
+    bool paintFailed = false;
+    bool paintInProgress = false;
+    bool isShown = false;
 };
 
 

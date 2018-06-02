@@ -8,6 +8,8 @@
 #include "qfiledialog.h"
 #include "graphsubwindow.h"
 #include "layerselectordialog.h"
+#include "applicationexception.h"
+#include "errorhandler.h"
 
 namespace Ui {
 class MainWindow;
