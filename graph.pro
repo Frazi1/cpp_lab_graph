@@ -33,7 +33,9 @@ SOURCES += \
     graphvertex.cpp \
     graphedge.cpp \
     vertexlayer.cpp \
-    layerselectordialog.cpp
+    layerselectordialog.cpp \
+    applicationexception.cpp \
+    errorhandler.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +46,9 @@ HEADERS += \
     graphvertex.h \
     graphedge.h \
     vertexlayer.h \
-    layerselectordialog.h
+    layerselectordialog.h \
+    applicationexception.h \
+    errorhandler.h
 
 FORMS += \
         mainwindow.ui \

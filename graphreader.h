@@ -4,6 +4,7 @@
 #include "qfile.h"
 #include "qtextstream.h"
 #include "qmessagebox.h"
+#include "applicationexception.h"
 
 class GraphReader
 {

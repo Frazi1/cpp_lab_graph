@@ -18,12 +18,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::OnFileOpenClick() {
     QString fileName = QFileDialog::getOpenFileName(this,
-            tr("Open Graph"), "",
-            tr("Graph (*.txt);;All Files (*)"));
+                                                    tr("Open Graph"), "",
+                                                    tr("Graph (*.txt);;All Files (*)"));
     GraphReader gr;
-    Graph<QString>* g = gr.ReadGraphFromFile(fileName);
-
-   CreateGraphSubWindow(g, "Test");
+//    try {
+        Graph<QString>* g = gr.ReadGraphFromFile(fileName);
+        CreateGraphSubWindow(g, "Test");
+//    }
+//    catch (ApplicationException& e){
+//        ErrorHandler::GetInstance().Handle(e);
+//    }
 }
 
 void MainWindow::OnFileSaveClick() {
@@ -34,6 +38,9 @@ void MainWindow::OnFileSaveClick() {
                                                         tr("Graph (*.txt);;All Files (*)"));
         GraphReader gr;
         gr.SaveGraphToFile(fileName, active->GetGraph());
+    }
+    else {
+        ErrorHandler::GetInstance().Info("Open Graph First");
     }
 
 }
@@ -53,6 +60,9 @@ void MainWindow::OnLayersClick(){
                 CreateGraphSubWindow((*layers)[layer], QString::number(layer));
             }
         }
+    }
+    else {
+        ErrorHandler::GetInstance().Info("Open Graph First");
     }
 }
 

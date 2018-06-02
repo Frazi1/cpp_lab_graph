@@ -8,7 +8,7 @@ GraphReader::GraphReader()
 Graph<QString>* GraphReader::ReadGraphFromFile(QString path){
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "error", file.errorString());
+        throw ApplicationException(file.errorString());
     }
 
     QTextStream in(&file);
