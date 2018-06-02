@@ -32,7 +32,8 @@ SOURCES += \
     graphdrawer.cpp \
     graphvertex.cpp \
     graphedge.cpp \
-    vertexlayer.cpp
+    vertexlayer.cpp \
+    layerselectordialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,8 +43,10 @@ HEADERS += \
     graphdrawer.h \
     graphvertex.h \
     graphedge.h \
-    vertexlayer.h
+    vertexlayer.h \
+    layerselectordialog.h
 
 FORMS += \
         mainwindow.ui \
-    graphsubwindow.ui
+    graphsubwindow.ui \
+    layerselectordialog.ui

@@ -3,9 +3,11 @@
 
 #include <QMainWindow>
 #include <QString>
+#include <QList>
 #include "graphreader.h"
 #include "qfiledialog.h"
 #include "graphsubwindow.h"
+#include "layerselectordialog.h"
 
 namespace Ui {
 class MainWindow;
