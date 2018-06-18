@@ -28,6 +28,7 @@ void MainWindow::OnFileOpenClick() {
 //    catch (ApplicationException& e){
 //        ErrorHandler::GetInstance().Handle(e);
 //    }
+        repaint();
 }
 
 void MainWindow::OnFileSaveClick() {
@@ -56,9 +57,13 @@ void MainWindow::OnLayersClick(){
 //            selectorDialog.GetSelectedVertex();
             QString selection = selectorDialog.GetSelectedVertex();
             QMap<int, Graph<QString>*>* layers = active->GetGraph()->GetVertexLayers(selection);
+            int cnt = layers->count();
             for(int layer: layers->keys()) {
-                CreateGraphSubWindow((*layers)[layer], QString::number(layer));
+                auto* window = CreateGraphSubWindow((*layers)[layer], QString::number(layer));
+                if(layer == cnt)
+                    ui->mdiArea->setActiveSubWindow(window);
             }
+
         }
     }
     else {
@@ -66,10 +71,11 @@ void MainWindow::OnLayersClick(){
     }
 }
 
-void MainWindow::CreateGraphSubWindow(Graph<QString>* g, QString title){
+GraphSubWindow* MainWindow::CreateGraphSubWindow(Graph<QString>* g, QString title){
     GraphSubWindow* w = new GraphSubWindow(ui->mdiArea, g);
     w->setWindowTitle(title);
     w->setAttribute(Qt::WA_DeleteOnClose);
     w->show();
+    return w;
 }
 

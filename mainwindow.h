@@ -30,7 +30,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    void CreateGraphSubWindow(Graph<QString>* g, QString name);
+    GraphSubWindow* CreateGraphSubWindow(Graph<QString>* g, QString name);
 };
 
 #endif // MAINWINDOW_H

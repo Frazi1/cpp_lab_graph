@@ -21,7 +21,7 @@ GraphSubWindow::~GraphSubWindow()
 
 void GraphSubWindow::paintEvent(QPaintEvent *paintEvent) {
     Q_UNUSED(paintEvent);
-    if(!paintFailed&& !paintInProgress) {
+    if(!paintFailed&& !paintInProgress && isShown) {
         paintInProgress = true;
         try {
             _painter = new QPainter(this);
